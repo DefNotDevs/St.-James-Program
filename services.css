@@ -1,0 +1,26 @@
+
+.btn {
+    border: none; /* Remove borders */
+    color: white; /* Add a text color */
+    padding: 7px 14px; /* Add some padding */
+    cursor: pointer; /* Add a pointer cursor on mouse-over */
+}
+
+.services-icons {
+    width: 80px;
+}
+
+
+section {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.success {background-color: #4CAF50;} /* Green */
+.success:hover {background-color: #46a049;}
+
+.danger {background-color: #f44336;} /* Red */
+.danger:hover {background: #da190b;}
+
+.default {background-color: #e7e7e7; color: black;} /* Gray */
+.default:hover {background: #ddd;}

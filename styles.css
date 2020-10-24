@@ -1,0 +1,44 @@
+html {
+    height: 100%
+}
+
+.hero-image {
+    /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+
+    /* Set a specific height */
+    height: 30%;
+
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+#herosection{
+}
+
+#landing-container{
+    background-color: rgba(255, 255, 255, .6);
+}
+
+body {
+    background-image: url("/305/Sprint/images/OutreachIMG002.jpeg");
+    background-color: black;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#landing-main-text{
+    justify-content: center;
+    height: 400px;
+    width: 500px;
+    border-radius: 25px;
+}
+
+#offices-info{
+    width:50rem;
+    height: 16rem;
+}
