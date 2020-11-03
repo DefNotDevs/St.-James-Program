@@ -9,10 +9,12 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/main.css">
 
     <title>Thank You</title>
 </head>
 <body>
+<!-- Navigation Bar -->
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand ml-5" href="https://defnotdevs.greenriverdev.com/305/Sprint/index.html">St. James Outreach Center</a>
@@ -24,9 +26,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="https://defnotdevs.greenriverdev.com/305/Sprint/index.html">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://defnotdevs.greenriverdev.com/305/Sprint/services.html">Services We Provide</a>
-                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="https://defnotdevs.greenriverdev.com/305/Sprint/multiStepForm.html">Contact Us</a>
                 </li>
@@ -35,15 +34,60 @@
     </nav>
 </header>
 
-<pre class="container mt-5 h5 text-center justify-content-around align-items-center" id="main">
+<div class="container mt-5 h5 text-center justify-content-around align-items-center" id="main">
 
-    <h2 class="text-white" >Thank you for your request. We’ll be in touch
-        soon, <?php echo $_GET['fname']; ?>!
-    </h2>
-</pre>
 
-<footer class="text-white bg-dark fixed-bottom">
-    <div class="container">
+    <?php
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $street = $_POST['street'];
+    $city = $_POST['city'];
+    $zip = $_POST['zip'];
+    $help = implode(", ", $_POST['help']);
+    $fromName = $fname . " " . $lname;
+    $fromEmail = $email;
+    $othertext = $_POST['othertext'];
+
+    ?>
+    <div>
+        <h2>Thank you for reaching out, <?php echo $fname;?>!</h2>
+    <?php
+
+    if($email == "") {
+        $email = "None listed.";
+    }
+    if($phone == "") {
+        $phone = "None listed";
+    }
+
+        //send email
+
+            $to = "tifferderer@yahoo.com";
+            $subject = "Help Inquiry";
+            $message = "Name: $fname $lname \n
+                        Email: $email \n
+                        Phone: $phone \n
+                        Address: $street $city $zip \n
+                        Services Requested: $help $othertext \n";
+
+            $headers = "Name: $fromName <$fromEmail>";
+
+            $success = mail($to, $subject, $message, $headers);
+
+
+        //Shortcut
+        echo $success ? "<p>We will be in contact with you shortly.</p>" :
+            "<p>Sorry... there was a problem.</p>";
+
+    ?>
+
+</div>
+</div>
+<!--
+<footer class="text-white bg-dark">
+    <div class="container bg-dark">
         <div class="row">
             <div class="col-sm">
                 <h4 class="p-3">Office Hours</h4>
@@ -70,8 +114,8 @@
             </div>
         </div>
         <p class="justify-content-center d-flex">Copyright © 2020 | DefNotDevs. | Privacy Policy</p>
-    </div>
-</footer>
+   </div>
+</footer> -->
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
