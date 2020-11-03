@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon"/>
 
     <title>Fill Out Form</title>
 </head>
@@ -36,146 +39,226 @@
     </nav>
 </header>
 
-<div class="hero-image mt-5">
-    <div class="hero-text text-white text-center font-weight-bolder">
-        <h1 id="herosection">St James Outreach Center</h1>
-        <h5>Helping the Kent school district for almost 30 years.</h5>
+
+<!--<div class="contentVisibility">-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <div class = "container">-->
+<!--        <div class="p-4 text-center font-weight-bold">-->
+<!--            You are currently trying to access the form outside of office hours. <br>-->
+<!--            Form is unavailable outside of office hours. <br>-->
+<!--            Please refer to the additional resources or try again during office hours. <br>-->
+<!--            We sincerely apologize for the inconvenience.-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--</div>-->
+
+<div class="contentVisibility">
+    <div class="hero-image mt-5">
+        <div class="hero-text text-white text-center font-weight-bolder">
+            <h1 id="herosection">St James Outreach Center</h1>
+            <h5>Helping the Kent school district for almost 30 years.</h5>
+        </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class = "container">
+        <div class="p-4 text-center">
+            Appointments are made first come first served. Online form is only accessible during business hours. If you cannot access
+            form it is either outside of business hours or we have filled our appointments for the week. Please try again next Monday
+            beginning at 1pm.
+        </div>
+        <form id="regForm" method="post" action="thankYou.php" class="rounded">
+            <h1>Please Fill Out Our Contact Form:</h1>
+
+            <!-- One fieldset for each step in the form: -->
+            <!-- Name info -->
+            <fieldset class="form-group border p-2">
+                <legend>Please Enter Your Name:</legend>
+
+                <div class ="row">
+                    <div class="form-group col-6">
+                        <label for="fname">First Name</label>
+                        <input type="text" class="form-control w-50" id="fname" name="fname">
+                        <span class="d-none text-danger font-weight-bold" id ="errFname">First name required</span>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="lname">Last Name</label>
+                        <input type="text" class="form-control w-50" id="lname" name="lname">
+                        <span class="d-none text-danger font-weight-bold" id ="errLname">Last name required</span>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group border p-2" id="address">
+                <legend>Address:</legend>
+                <div class="form-group">
+                    I have permanent shelter:
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="shelter" id="shelter-yes" value="yes">
+                        <label class="form-check-label" for="shelter-yes">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="shelter" id="shelter-no" value="No" checked>
+                        <label class="form-check-label" for="shelter-no">No</label>
+                    </div>
+                </div>
+
+                <div id="display-address" class="d-none">
+
+                <div class="form-group">
+                    <label for="street">Street</label>
+                    <input type="text" class="form-control w-25" id="street" name="street">
+                    <span class="d-none text-danger font-weight-bold" id ="errStreet">Street required</span>
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control w-25" id="city" name="city">
+                    <span class="d-none text-danger font-weight-bold" id ="errCity">City required</span>
+                </div>
+                <div class="form-group">
+                    <label for="zip">Zip</label>
+                    <select class="form-control" id="zip" name="zip">
+                        <option value="none">Select your zip</option>
+                        <option value="98042">98042</option>
+                        <option value="98030">98030</option>
+                        <option value="98058">98058</option>
+                        <option value="98031">98031</option>
+                        <option value="98032">98032</option>
+                        <option value="98010">98010</option>
+                        <option value="other">Zip code not listed?</option>
+                    </select>
+                    <span class="d-none text-danger font-weight-bold" id ="errZip">Zip Code required</span>
+                </div>
+
+                </div>
+            </fieldset>
+            <fieldset class="form-group border p-2">
+                <legend>How Should We Contact You?</legend>
+                <span id="err-verbage" class="d-none text-danger font-weight-bold">Please provide either
+                    an email address or phone number so that we can get in touch with you. Email is preferred!</span>
+
+                <div class ="row">
+                    <div class="form-group col-5">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control w-75" id="email" name="email">
+                        <span id="err-email" class="d-none text-danger font-weight-bold">One of these fields is required</span>
+                    </div>
+                    <div class="form-group col-5">
+                        <label for="phone">Phone Number</label>
+                        <input type="text" class="form-control w-50" id="phone" name="phone">
+                        <span id="errPhone" class="d-none text-danger font-weight-bold">One of these fields is required</span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!--How can we help-->
+            <fieldset class="form-group border p-2 mt-5">
+                <legend>What Assistance Are You Seeking? Check All That Apply.
+                    <span id="errHelp" class="d-none text-danger font-weight-bold">Please Choose At Least One</span>
+                </legend>
+
+                <div class ="row-md justify-content-around">
+                    <div class='form-check col-md-4 mt-2'>
+                        <input class='form-check-input'
+                               type='checkbox' name='help[]'
+                               id='utilities' value='utilities' >
+                        <label class='form-check-label'
+                               for='utilities'>Utilities (electricity/water)</label>
+                        <div id="utilitiesFile" class="d-none">
+                            <div class="custom-file">
+                         <!--   <input type="file" class="custom-file-input w-50" id="utilitiesnotice">
+                          <label class="custom-file-label" for="utilitiesnotice">Upload Current
+                                Bill With Name/Address</label>  -->
+                                <br>
+                                *You will need a copy of your current bill with your name and address for your appointment.
+                        </div>
+                        </div>
+                    </div>
+                    <div class='form-check col-md-4 mt-2'>
+                        <input class='form-check-input'
+                               type='checkbox' name='help[]'
+                               id='rent' value='rent' >
+                        <label class='form-check-label'
+                               for='rent'>Rent</label>
+                        <div id="rentFile" class="d-none">
+                            <div class="custom-file">
+                        <!--    <input type="file" class="custom-file-input w-50" id="eviction">
+                            <label class="custom-file-label" for="eviction">Upload Eviction Notice</label>
+                           -->     <br>
+                                *You will need a copy of your eviction notice for your appointment.
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class ="row-md justify-content-around">
+                    <div class='form-check col-md-4 mt-4'>
+                        <input class='form-check-input'
+                               type='checkbox' name='help[]'
+                               id='gas' value='gas' >
+                        <label class='form-check-label'
+                               for='gas'>Gas</label>
+                        <div id="gasFile" class="d-none">
+                            <div class="custom-file">
+                        <!--    <input type="file" class="custom-file-input w-50" id="driver">
+                            <label class="custom-file-label" for="driver" >Upload Photo of Driver's License</label>
+                         -->   <br>
+                                *You will need to bring your driver's license with you to your appointment.
+                            </div>
+                        </div>
+                    </div>
+                    <div class='form-check col-md-4 mt-4'>
+                        <input class='form-check-input'
+                               type='checkbox' name='help[]'
+                               id='clothing' value='clothing' >
+                        <label class='form-check-label'
+                               for='clothing'>Clothing and Household Items</label>
+                    </div>
+                </div>
+                <div class ="row-md justify-content-around">
+                    <div class='form-check col-md-4 mt-4'>
+                        <input class='form-check-input'
+                               type='checkbox' name='help[]'
+                               id='id' value='id' >
+                        <label class='form-check-label'
+                               for='id'>ID or Driver's License</label>
+                    </div>
+                    <div class='form-check col-md-4 mt-4'>
+                        <input class='form-check-input'
+                               type='checkbox' name='help[]'
+                               id='food' value='food' >
+                        <label class='form-check-label'
+                               for='food'>Food</label>
+                    </div>
+                </div>
+                <div class ="row-md justify-content-around">
+                    <div class='form-check col-md-6 mt-4 mb-2'>
+                        <input class='form-check-input'
+                               type='checkbox' name='help[]'
+                               id='other' value='other' >
+                        <label class='form-check-label'
+                               for='other'>Other</label>
+                        <div class="d-none" id="otherFile">
+                        <input type="text" class="form-control w-50 d-inline d-none" id="othertext" name="othertext">
+                        <br>
+                            <span id="otherError" class="d-none text-danger font-weight-bold">*Please specify</span>
+                        </div>
+                        <br>
+
+                    </div>
+                </div>
+
+                <!-- Confirm button -->
+                <input type="submit" value="Confirm" class="float-right">
+            </fieldset>
+        </form>
     </div>
 </div>
 
-<!-- Contact Form -->
-<div class = "container">
-    <form id="regForm" action="thankYou.php" class="rounded">
-        <h1>Please Fill Out Our Contact Form:</h1>
 
-        <!-- One fieldset for each step in the form: -->
-        <!-- Name info -->
-        <fieldset class="form-group border p-2">
-            <legend>Please Enter Your Name:</legend>
-
-            <div class="form-group">
-                <label for="fname">First Name</label>
-                <input type="text" class="form-control w-25" id="fname" name="fname">
-                <span class="d-none text-danger" id ="errFname">Name required</span>
-            </div>
-            <div class="form-group">
-                <label for="lname">Last Name</label>
-                <input type="text" class="form-control w-25" id="lname" name="lname">
-                <span class="d-none text-danger" id ="errLname">Name required</span>
-            </div>
-        </fieldset>
-        <fieldset class="form-group border p-2" id="address">
-            <legend>Address:</legend>
-            <div class="form-group">
-                I have permanent shelter:
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="shelter" id="shelter-yes" value="yes">
-                    <label class="form-check-label" for="shelter-yes">Yes</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="shelter" id="shelter-no" value="No">
-                    <label class="form-check-label" for="shelter-no">No</label>
-                </div>
-            </div>
-
-            <span id="display-address" class="">
-
-            <div class="form-group">
-                <label for="street">Street</label>
-                <input type="text" class="form-control w-25" id="street" name="street">
-            </div>
-            <div class="form-group">
-                <label for="city">City</label>
-                <input type="text" class="form-control w-25" id="city" name="city">
-            </div>
-            <div class="form-group">
-                <label for="zip">Zip</label>
-                <input type="text" class="form-control w-25" id="zip" name="zip">
-
-            </div>
-
-            </span>
-        </fieldset>
-        <fieldset class="form-group border p-2">
-            <legend>How Should We Contact You:</legend>
-
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control w-25" id="email" name="email">
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="text" class="form-control w-25" id="phone" name="phone">
-            </div>
-        </fieldset>
-
-        <!--How can we help-->
-        <fieldset class="form-group border p-2 mt-5">
-            <legend>What Assistance Are You Seeking? Check All That Apply.</legend>
-
-            <div class='form-check'>
-                <input class='form-check-input'
-                       type='checkbox' name='help[]'
-                       id='utilities' value='utilities' >
-                <label class='form-check-label'
-                       for='utilities'>Utilities (electricity/water)</label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input w-50" id="utilitiesnotice"> *Optional
-                    <label class="custom-file-label" for="utilitiesnotice">Upload Current
-                        Bill With Name/Address</label>
-                </div>
-            </div>
-            <div class='form-check'>
-                <input class='form-check-input'
-                       type='checkbox' name='help[]'
-                       id='rent' value='rent' >
-                <label class='form-check-label'
-                       for='rent'>Rent</label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input w-50" id="eviction"> *Optional
-                    <label class="custom-file-label" for="eviction">Upload Eviction Notice</label>
-                </div>
-            </div>
-            <div class='form-check'>
-                <input class='form-check-input'
-                       type='checkbox' name='help[]'
-                       id='gas' value='gas' >
-                <label class='form-check-label'
-                       for='gas'>Gas</label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input w-50" id="driver"> *Optional
-                    <label class="custom-file-label" for="driver">Upload Photo of Driver's License</label>
-                </div>
-            </div>
-            <div class='form-check'>
-                <input class='form-check-input'
-                       type='checkbox' name='help[]'
-                       id='clothing' value='clothing' >
-                <label class='form-check-label'
-                       for='clothing'>Clothing and Household Items</label>
-            </div>
-            <div class='form-check'>
-                <input class='form-check-input'
-                       type='checkbox' name='help[]'
-                       id='id' value='id' >
-                <label class='form-check-label'
-                       for='id'>ID or Driver's License</label>
-            </div>
-            <div class='form-check'>
-                <input class='form-check-input'
-                       type='checkbox' name='help[]'
-                       id='food' value='food' >
-                <label class='form-check-label'
-                       for='food'>Food</label>
-            </div>
-
-            <!-- Confirm button -->
-            <input type="submit" value="Confirm" class="float-right">
-        </fieldset>
-    </form>
-</div>
 <footer class="text-white bg-dark">
-    <div class="container">
+    <div class="container bg-dark">
         <div class="row">
             <div class="col-sm">
                 <h4 class="p-3">Office Hours</h4>
@@ -209,7 +292,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <script src="scripts/validateForm.js"></script>
-<script src="scripts/form.js"></script>
+<!--<script src="scripts/form.js"></script> -->
 
 </body>
 </html>
