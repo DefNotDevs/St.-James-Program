@@ -4,6 +4,10 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 //Connect to Database
+$database = "defnotde_grc";
+$username = "defnotde_grcuser";
+$password = "Most.Def.Not.Devs.";
+$hostname = "localhost";
 
 // @ suppresses error from that function call
 // If connection fails. or die() function will handle the error.
@@ -80,7 +84,7 @@ $cnxn = mysqli_connect($hostname, $username, $password, $database)
 
         <?php
 
-        $sql = "SELECT * FROM outreach";
+        $sql = "SELECT * FROM outreach ORDER BY submit_date DESC";
         $result = mysqli_query($cnxn, $sql);
         //var_dump($result);
 
@@ -95,8 +99,8 @@ $cnxn = mysqli_connect($hostname, $username, $password, $database)
             $zip = $row['zip'];
             $email = $row['email'];
             $phone = $row['phone'];
-            $serviceid = $row['serviceid'];
-            $serviceother = $row['serviceother'];
+            $service = ($row['service']);
+            $serviceother = $row['service_other'];
             $submit_date = date("M d, Y g:i a",strtotime( $row['submit_date']));
 
             echo "<tr>";
@@ -108,9 +112,9 @@ $cnxn = mysqli_connect($hostname, $username, $password, $database)
                 <td>$zip</td>
                 <td>$email</td>
                 <td>$phone</td>
-                <td>$serviceid</td>
+                <td>$service</td>
                 <td>$serviceother</td>
-                <td>$submit_date</td>
+                <td class='sorting_desc'>$submit_date</td>
                  ";
             echo "</tr>";
         }
@@ -159,7 +163,11 @@ $cnxn = mysqli_connect($hostname, $username, $password, $database)
 <script src ="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
 <script>
-    $('#service-table').DataTable();
+    $('#service-table').DataTable(
+        {
+            "order": [[ 10, "desc" ]]
+        }
+    );
 </script>
 </body>
 </html>
