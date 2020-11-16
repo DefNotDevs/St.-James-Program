@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <title>St. James Outreach</title>
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand ml-5" href="#">St. James Outreach Center</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end mr-5" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="https://defnotdevs.greenriverdev.com/305/Sprint/index.html">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="https://defnotdevs.greenriverdev.com/305/Sprint/services.html">Services We Provide</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://defnotdevs.greenriverdev.com/305/Sprint/multiStepForm.html">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div class="hero-image mt-5">
+    <div class="hero-text text-white text-center font-weight-bolder">
+        <h1 id="herosection">St James Outreach Center</h1>
+        <h5>Helping the Kent school district for almost 30 years.</h5>
+    </div>
+</div> <!-- hero image and text div-->
+
+<form id="adminform" method="get" action="confirmation.php">
+    <div class="container mt-5 mb-5 border border-light rounded" id="landing-container">
+        <div class="container text-center mt-5 h5 text-black text-center font-weight-normal justify-content-around align-items-center" id="landing-main-text">
+            <div class="form-group">
+                <label for="admin">Administrator Login</label>
+                <input type="text" class="form-control" id="admin" name="admin" placeholder="Admin Credentials">
+                <span class="d-none err text-dark" id="err-admin">⚠ Invalid Credentials</span>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="password" name="password" placeholder="Password">
+                <span class="d-none err text-dark" id="err-password">⚠ Invalid Password</span>
+            </div>
+            <input type="submit" value="Login">
+            <br>
+        </div>
+    </div>
+</form>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="validation.js"></script>
+</body>
+</html>
