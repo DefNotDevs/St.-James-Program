@@ -3,16 +3,13 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-//Connect to Database
-$database = "defnotde_grc";
-$username = "defnotde_grcuser";
-$password = "Most.Def.Not.Devs.";
-$hostname = "localhost";
+require ('includes/dbcreds.php');
 
 // @ suppresses error from that function call
 // If connection fails. or die() function will handle the error.
 $cnxn = mysqli_connect($hostname, $username, $password, $database)
     or die("There was a problem");
+require('includes/formFunctions.php');
 ?>
 
 <!doctype html>
@@ -55,10 +52,42 @@ $cnxn = mysqli_connect($hostname, $username, $password, $database)
 
 
     <?php
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
+    // Server Validation
+    $isValid = true;
+
+    // Get data from post array
+    // first name
+    if (validName($_POST['fname'])){            
+        $fname = $_POST['fname'];
+        } else {
+            echo "<p>Must enter your first name</p>";
+            $isValid = false;
+        }
+      
+    // last name    
+    if (validName($_POST['lname'])){            
+        $lname = $_POST['lname'];
+        } else {
+            echo "<p>Must enter your last name</p>";
+            $isValid = false;
+        }
+        
+    // email
+    if(validEmail($_POST['email'])){
+        $email = $_POST['email'];
+    }else{
+        echo "<p>Please enter a valid email address.</p>";
+        $isValid = false;
+    }
+    
+    // phone number
+    if(validPhoneNumber($_POST['phone'])){
+        $phone = $_POST['phone'];
+    } else{
+        echo "<p>Please enter a valid phone number.</p>";
+        $isValid = false;
+    }
+    
     $street = $_POST['street'];
     $city = $_POST['city'];
     $zip = $_POST['zip'];
@@ -67,6 +96,12 @@ $cnxn = mysqli_connect($hostname, $username, $password, $database)
     $fromName = $fname . " " . $lname;
     $fromEmail = $email;
     $othertext = $_POST['othertext'];
+    
+    
+    if(!$isValid){
+        echo "Invalid form entry, please try to resubmit with valid information.";
+        return;
+    }
 
     ?>
     <div>
@@ -80,12 +115,24 @@ $cnxn = mysqli_connect($hostname, $username, $password, $database)
         $phone = "None listed";
     }
     
+        // Prevent SQL Injection
+        $fname = mysqli_real_escape_string($cnxn, $fname);
+        $lname = mysqli_real_escape_string($cnxn, $lname);
+        $street = mysqli_real_escape_string($cnxn, $street);
+        $city = mysqli_real_escape_string($cnxn, $city);
+        $zip = mysqli_real_escape_string($cnxn, $zip);
+        $address = mysqli_real_escape_string($cnxn, $address);
+        $email = mysqli_real_escape_string($cnxn, $email);
+        $phone = mysqli_real_escape_string($cnxn, $phone);
+        //$service = mysqli_real_escape_string($cnxn, $service);
+        //$service_other = mysqli_real_escape_string($cnxn, $service_other);
+        
         // Add form data to database
         $sql = "INSERT INTO outreach(fname, lname, street, city, zip, address, email, phone, service, service_other) VALUES ('$fname', '$lname', '$street','$city','$zip','$address', '$email','$phone', '$help','$othertext')";
         
         $success = mysqli_query($cnxn, $sql);
         if(!$success){
-            echo "<p>Sorry, something went wrong</p>";
+            echo "<p>Sorry, connection error.</p>";
             return;
         }
 

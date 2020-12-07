@@ -2,20 +2,23 @@
 // ERROR REPORTING
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
+// Starts session
+session_start();
 
-//Connect to Database
-$database = "defnotde_grc";
-$username = "defnotde_grcuser";
-$password = "Most.Def.Not.Devs.";
-$hostname = "localhost";
+if (!isset($_SESSION['loggedin'])) {
 
-// @ suppresses error from that function call
-// If connection fails. or die() function will handle the error.
-$cnxn = mysqli_connect($hostname, $username, $password, $database)
-    or die("There was a problem");
+    //Store the page that I'm currently on in the session
+    $_SESSION['page'] = $_SERVER['SCRIPT_URI'];
+
+    //Redirect to login
+    header("location: admin.php");
+}
+require('includes/dbcreds.php');
 ?>
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -34,49 +37,61 @@ $cnxn = mysqli_connect($hostname, $username, $password, $database)
 
 <body>
 <!-- Navigation Bar -->
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand ml-5" href="https://defnotdevs.greenriverdev.com/305/Sprint/index.html">St. James Outreach Center</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end mr-5" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="https://defnotdevs.greenriverdev.com/305/Sprint/index.html">View Homepage</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="https://defnotdevs.greenriverdev.com/305/Sprint/multiStepForm.html">View Form</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand ml-5" href="#">St. James Outreach Center</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-<div class="container  vh-100  mt-5 text-black text-center font-weight-normal justify-content-center align-items-center">
+            <div class="collapse navbar-collapse justify-content-end mr-5" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://defnotdevs.greenriverdev.com/305/Sprint/index.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://defnotdevs.greenriverdev.com/305/Sprint/involved.php">Get Involved</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://defnotdevs.greenriverdev.com/305/Sprint/multiStepForm.php">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://defnotdevs.greenriverdev.com/305/Sprint/logout.php">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-<!--<label class="switch">-->
-<!--  <input type="checkbox">-->
-<!--  <span class="slider round"></span>-->
-<!--</label>-->
-<!--<p>Form Visibility</p>-->
+<div class="container mb-4  mt-5 text-black text-center font-weight-normal justify-content-center align-items-center">
+<div class="mt-2">
+    <?php
+    $toggle = "SELECT available FROM toggle WHERE id = 1";
+    $available = mysqli_query($cnxn, $toggle);
+
+    $status = $available->fetch_row();
+
+    ?>
+    <label class="mt-2" for="visible">Form Visibility</label>
+    <select id="visible" name="visible" >
+        <option value='on'<?php if($status =='on') {echo "selected";}?>>Form: On</option>
+        <option value='off'<?php if($status == 'off') {echo "selected";}?>>Form: Off</option>
+    </select>
+    <button id="go">Go</button> <br>
+</div>
+
 <br>
 
     <h1>Order Summary</h1>
-    <table id = "service-table" class = "display">
+    <table id = "service-table" class = "display mb-4">
         <thead>
         <tr>
-            <td>Guest ID</td>
-            <td>First Name</td>
-            <td>Last Name</td>
-            <td>Street</td>
-            <td>City</td>
+            <td>Date Submitted</td>
+            <td>Client Name</td>
             <td>Zip</td>
             <td>Email</td>
             <td>Phone</td>
             <td>Service Requested</td>
-            <td>Other Request</td>
-            <td>Date Submitted</td>
         </tr>
         </thead>
 
@@ -90,77 +105,46 @@ $cnxn = mysqli_connect($hostname, $username, $password, $database)
 
         foreach ($result as $row) {
             //var_dump($row);
-            $form_id = $row['form_id'];
+            //$form_id = $row['form_id'];
             $fullname = $row['fname'] . " " . $row['lname'];
             $fname = $row['fname'];
             $lname = $row['lname'];
-            $street = $row['street'];
-            $city = $row['city'];
+            // $street = $row['street'];
+            //$city = $row['city'];
             $zip = $row['zip'];
             $email = $row['email'];
             $phone = $row['phone'];
             $service = ($row['service']);
-            $serviceother = $row['service_other'];
-            $submit_date = date("M d, Y g:i a",strtotime( $row['submit_date']));
+            if($row['service_other'] == "") {
+                $serviceother = $row['service_other'];
+            }
+            else { $serviceother = '- ' . $row['service_other'];
+            }
+            $submit_date = date("M d, Y g:i a",strtotime( $row['submit_date'] . '- 3 hours'));
 
             echo "<tr>";
-            echo"<td>$form_id</td>
-                <td>$fname</td>
-                <td>$lname</td>
-                <td>$street</td> 
-                <td>$city</td>
+            echo"<td>$submit_date</td>
+                <td>$fname $lname</td>
                 <td>$zip</td>
                 <td>$email</td>
                 <td>$phone</td>
-                <td>$service</td>
-                <td>$serviceother</td>
-                <td class='sorting_desc'>$submit_date</td>
+                <td>$service $serviceother</td>
                  ";
             echo "</tr>";
         }
         ?>
         </tbody>
-
     </table>
+    <br>
 </div>
 
-
-
-<footer class="text-white bg-dark">
-    <div class="container bg-dark">
-        <div class="row">
-            <div class="col-sm">
-                <h4 class="p-3">Office Hours</h4>
-                <p class=" p-3">
-                    Monday:    1:00 PM - 4:00 PM <br>
-                    Tuesday:   9:00 AM - 12:00 PM <br>
-                    Wednesday: 1:00 PM - 4:00 PM
-                </p>
-            </div>
-            <div class="col-sm">
-                <h4 class="p-3">Additional Resources</h4>
-                <p class="p-3">
-                    <a href="https://www.211.org/">211</a><br>
-                    <a href="https://kentmethodist.com/assistance">Kent Methodist</a>
-                </p>
-            </div>
-            <div class="col-sm">
-                <h4 class="p-3">Kent Office</h4>
-                <p class="p-3">
-                    24447 94th Ave S. <br>
-                    Kent, WA 98030 <br>
-                    253-852-4100 <br>
-                </p>
-            </div>
-        </div>
-        <p class="justify-content-center d-flex">Copyright © 2020 | DefNotDevs. | Privacy Policy</p>
-    </div>
-</footer>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <script src ="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="scripts/formToggle.js"></script>
 
 <script>
     $('#service-table').DataTable(
@@ -169,5 +153,17 @@ $cnxn = mysqli_connect($hostname, $username, $password, $database)
         }
     );
 </script>
+
+<script>
+    $('#go').on('click',
+        function() {
+            var value = $('#visible').val();
+            alert("The form visibility is now " + value + ".");
+
+            $.post("scripts/toggle.php", { value:value }, function(result){
+            });
+        });
+</script>
+
 </body>
 </html>

@@ -1,9 +1,16 @@
 
 .container {
-    background-color:  rgba(255, 255, 255, .8);
+    background-color:  rgba(255, 255, 255, .9);
 }
 fieldset {
     margin-top: 1em;
+}
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+th,td {
+    word-wrap: break-word;
 }
 
 
